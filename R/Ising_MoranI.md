@@ -1,10 +1,10 @@
-# This script is used to analyze spatial structure in the Ising model of criticality.
+# Code used for analyzing spatial structure in the Ising model of criticality
 
 Morans Index estimates the spatial structure in the Data (i.e. how likely is to predict a value given the value of the neighbours).
 
 The index is calculated by:
 
-$$\sum_{n=1}^{10} n^2 $$
+$$  <i>I</i> = {N\over W} \times {\sum_{i=1}^{N} \sum_{j=1}^{N} w_ij (x_i - \overline{x}) (x_j - \overline{x}) \over {\sum_{i=1}^{N}}(x_i - \overline{x})} $$
 
 
 
