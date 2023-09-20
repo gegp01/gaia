@@ -1,12 +1,19 @@
 # This script is used to analyze spatial structure in the Ising model of criticality.
 
+Morans Index estimates the spatial structure in the Data (i.e. how likely is to predict a value given the value of the neighbours).
+
+The index is calculated by:
+
+$$\sum_{n=1}^{10} n^2 $$
+
+
+
 # ISING MODEL DATA
 
 ```
   path2ising = "~/gaia/DATA/ising_grids/"
   fls = list.files(path2ising)
 ```
-
 
 # Check data set
 ```
