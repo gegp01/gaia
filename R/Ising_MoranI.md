@@ -23,6 +23,9 @@ As suggested by XXXX we can define the weight matrix W as 1 minus the ratio betw
 
 $$ (1-{dist_{ij}/H}²)² $$
 
+The distance between each pair of points ($dist_ij$) is calculated as the Manhatan distance: 
+
+$$ |lat_i - lat_j| + |lon_i - lon_j| $$  
 
 
 # ISING MODEL DATA
