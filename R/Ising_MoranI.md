@@ -1,10 +1,27 @@
 # Code used for analyzing spatial structure in the Ising model of criticality
 
-Morans Index estimates the spatial structure in the Data (i.e. how likely is to predict a value given the value of the neighbours).
+Morans Index (I) estimates the spatial structure in the Data (i.e. how likely is to predict the value of an spatial observation with values of the neighbours arround the observation).
 
-The index is calculated by:
+This index is calculated as the ratio of the number of observations (N) divided by the Weights (W) indicating whether an observation should be accounted for the calculation or not:
 
-$$  <i>I</i> = {N\over W} \times {\sum_{i=1}^{N} \sum_{j=1}^{N} w_ij (x_i - \overline{x}) (x_j - \overline{x}) \over {\sum_{i=1}^{N}}(x_i - \overline{x})} $$
+$$  <i>I = {N\over W} {A \over B} </i> $$
+
+$$ <i>N</i> = samples $$
+
+$$ W = {\sum_{i=1}^{N} w_{ij}} $$
+
+$$ A = {\sum_{i=1}^N \sum_{j=1}^N w_{ij} z_i z_j } $$
+
+$$ B = {\sum_{i=1}^{N} z_i²} $$
+
+$$ z_i = x_i - \overline{x} $$
+
+$$ z_j = x_j - \overline{x} $$
+
+
+As suggested by XXXX we can define the weight matrix W as 1 minus the ratio between distance between a pair of observations divided by an arbitrary maximum distance (<i>H</i>); and values > <i>H</i> are considered as 0.
+
+$$ (1-{dist_{ij}/H}²)² $$
 
 
 
