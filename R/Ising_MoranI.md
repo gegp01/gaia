@@ -21,7 +21,7 @@ $$ z_j = x_j - \overline{x} $$
 
 As suggested by XXXX we can define the weight matrix W as 1 minus the ratio between distance between a pair of observations divided by an arbitrary maximum distance (<i>H</i>); and values > <i>H</i> are considered as 0.
 
-$$ (1-{dist_{ij}/H}²)² $$
+$$ (1-({dist_{ij} \over H})²)² $$
 
 The distance between each pair of points ($dist_ij$) is calculated as the Manhatan distance: 
 
