@@ -19,7 +19,7 @@ $$ z_i = x_i - \overline{x} $$
 $$ z_j = x_j - \overline{x} $$
 
 
-As suggested by XXXX we can define the weight matrix W as 1 minus the ratio between distance between a pair of observations divided by an arbitrary maximum distance (<i>H</i>); and values > <i>H</i> are considered as 0.
+As suggested by <a href ="http://lctools.science/lctools/" target="_blank">Stamatis Kalogirou</a> we can define the weight matrix W as 1 minus the ratio between distance between a pair of observations divided by an arbitrary maximum distance (<i>H</i>); and values > <i>H</i> are considered as 0.
 
 $$ (1-({dist_{ij} \over H})²)² $$
 
@@ -28,14 +28,14 @@ The distance between each pair of points ($dist_ij$) is calculated as the Manhat
 $$ |lat_i - lat_j| + |lon_i - lon_j| $$  
 
 
-# ISING MODEL DATA
+## ISING MODEL DATA
 
 ```
   path2ising = "~/gaia/DATA/ising_grids/"
   fls = list.files(path2ising)
 ```
 
-# Check data set
+### Check data set
 ```
 readLines(paste(path2ising,fls[1], sep = ""), n=10)
 T1.500 = read.table(paste(path2ising,fls[1], sep = ""),header=F, skip=1)
@@ -57,36 +57,36 @@ M.T1.BISQ.9999 = lctools::moransI(cbind(lon.vt1, lat.vt1), 9999, VT1, WType ="Bi
 
 M.T2.BISQ = lctools::moransI(cbind(lon.vt1, lat.vt1), 1000, VT2, WType ="Bi-square")
 M.T3.BISQ = lctools::moransI(cbind(lon.vt1, lat.vt1), 1000, VT3, WType ="Bi-square")
+#saveRDS(list(M.T1.BINOM, M.T1.BISQ.50, M.T1.BISQ.1000, M.T1.BISQ.10000), "moran_T1.5.rds")
 ```
 
-#saveRDS(list(M.T1.BINOM, M.T1.BISQ.50, M.T1.BISQ.1000, M.T1.BISQ.10000), "moran_T1.5.rds")
 
-# Graph results
 
+### Graph results
+
+```
 M.T1 = M.T1.BISQ.1000
-
 jpeg("ising_T1.5_10000neighbors.jpeg")
 pal <- colorRampPalette(c("black", "azure"))
 image(M.T1$W, col = pal(5))
 title(main=c("p =", round(M.T1$p.value.randomization), 3))
 dev.off()
 
-jpeg("ISING.jpeg")
-par(mfrow=c(2,3))
-image(as.matrix(T1.500), col=c(0,1))
-title(main = paste("Moran", round(M.T1.BISQ$Morans.I, 3)),
-      sub = paste("Z =", round(M.T1.BISQ$z.randomization, 3)
-                  , "\n p =", round(M.T1.BISQ$p.value.randomization, 3)))
+jpeg("~/gaia/ising/weights.jpeg", quality = 100, height = 500, width=1500)
+# svg("~/gaia/ising/weights.svg")
 
-image(as.matrix(T2.269), col=c(0,1))
-title(main = paste("Moran", round(M.T2.BISQ$Morans.I, 3)),
-      sub = paste("Z =", round(M.T2.BISQ$z.randomization, 3)
-                  , "\n p =", round(M.T2.BISQ$p.value.randomization, 3)))
+m = rbind(c(1,2,3))
+layout(m)
 
+image(as.matrix(T2.269), col = c(0,1))
 
-image(as.matrix(T3.500), col=c(0,1))
-title(main = paste("Moran", round(M.T3.BISQ$Morans.I, 3)),
-      sub = paste("Z =", round(M.T3.BISQ$z.randomization, 3)
-                  , "\n p ~", round(M.T3.BISQ$p.value.randomization,4)))
+TEMP = c(0:10)/10
+colfunc <- colorRampPalette(c("black", "azure"))
+mypal = as.numeric(cut(M.T2.BISQ.1000$W, TEMP))
+image(M.T2.BISQ.1000$W, col=colfunc(length(TEMP))[mypal])
+
+mypal = as.numeric(cut(M.T2.BISQ.9999$W, TEMP))
+image(M.T2.BISQ.9999$W, col=colfunc(length(TEMP))[mypal])
 
 dev.off()
+
