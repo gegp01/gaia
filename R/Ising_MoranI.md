@@ -30,10 +30,26 @@ $$ |lat_i - lat_j| + |lon_i - lon_j| $$
 
 ## ISING MODEL DATA
 
+<div align = "center">
+  <img src="T2_269.jpeg" height = 300 width = 300>
+</div>
+
 ```
   path2ising = "~/gaia/DATA/ising_grids/"
   fls = list.files(path2ising)
 ```
+
+### Assigning the maximum distance between neighbors
+
+The maximum distance between neighbours (H) defined to calculate the Weights matrix, influence the value of I. As H increases I decreases. 
+
+<div align = "center">
+  <img src="I_bandwidth_plot.jpeg" height = 300 width = 300>
+</div>
+
+
+
+
 
 ### Check data set
 ```
