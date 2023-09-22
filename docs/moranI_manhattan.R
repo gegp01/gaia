@@ -1,4 +1,6 @@
 ## Modified from lctools::moransI
+
+moransI_manhattan =
 function (Coords, Bandwidth, x, WType = "Binary") 
 {
     Distances <- dist(Coords, method = "manhattan")
