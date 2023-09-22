@@ -65,5 +65,3 @@ function (Coords, Bandwidth, x, WType = "Binary")
         p.value.resampling = pv.resampling, p.value.randomization = pv.randomization)
     return(Results)
 }
-<bytecode: 0x55a22d12a7c0>
-<environment: namespace:lctools>
