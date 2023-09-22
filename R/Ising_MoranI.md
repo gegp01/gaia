@@ -47,6 +47,17 @@ The maximum distance between neighbours (H) defined to calculate the weights mat
   <img src="I_bandwith_plot.jpeg" height = 500 width = 500>
 </div>
 
+#### Weight matrices at different Bandwidths 
+
+<div align = "center">
+  <img src="W_1000.png" height = 500 width = 500>
+</div>
+
+<div align = "center">
+  <img src="W_9999.png" height = 500 width = 500>
+</div>
+
+Legend of colors: Black (distance > H); proximity increases from cyan to purple (distance). 
 
 
 
