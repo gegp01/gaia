@@ -44,7 +44,7 @@ $$ |lat_i - lat_j| + |lon_i - lon_j| $$
 The maximum distance between neighbours (H) defined to calculate the weights matrix (W), influences the value of I. As H increases I decreases. 
 
 <div align = "center">
-  <img src="I_bandwidth_plot.jpeg" height = 500 width = 500>
+  <img src="I_bandwith_plot.jpeg" height = 500 width = 500>
 </div>
 
 
