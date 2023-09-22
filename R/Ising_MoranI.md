@@ -41,7 +41,7 @@ $$ |lat_i - lat_j| + |lon_i - lon_j| $$
 
 ### Assigning the maximum distance between neighbors
 
-The maximum distance between neighbours (H) defined to calculate the weights matrix (W), influence the value of I. As H increases I decreases. 
+The maximum distance between neighbours (H) defined to calculate the weights matrix (W), influences the value of I. As H increases I decreases. 
 
 <div align = "center">
   <img src="I_bandwidth_plot.jpeg" height = 300 width = 300>
