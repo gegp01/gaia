@@ -42,7 +42,7 @@ The result is a 25 x 25 matrix with weights for each pair of observations (ij).
 
 
 <div align = "center">
- <img src="checker_matrix.png" height = 300 width = 300> <img src="random_matrix.png" height = 300 width = 300>
+ <img src="checker_matrix.png" height = 300 width = 300> <img src="random_matrix.png" height = 300 width = 300> <img src="nested_matrix.png" height = 300 width = 300>
 </div>
 
 
