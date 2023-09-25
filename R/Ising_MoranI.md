@@ -45,7 +45,14 @@ The result is a 25 x 25 matrix with weights for each pair of observations (ij).
  <img src="checker_matrix.png" height = 300 width = 300> <img src="random_matrix.png" height = 300 width = 300> <img src="nested_matrix.png" height = 300 width = 300>
 </div>
 
+</br></br>
 
+<div>The weight matrix in lctools (with Bandwidth = 4) is represented by a matrix with zeros in the diagonal and in all pairs of observations (ij) separated by a distance larger that <i>H</i>.
+
+<div align = "center">
+  <img src="weights_lctools_matrix.png" height = 500 width = 500>
+</div>
+</div>
 
 
 ## ISING MODEL DATA
