@@ -31,14 +31,21 @@ $$ |lat_i - lat_j| + |lon_i - lon_j| $$
 
 ## Calculating the weight matrix. 
 
-The value of Morans Index is sensitive to all the weight matrix W that we assign in the calculations.
+The value of Morans Index is sensitive to the weights matrix W that we assign in the calculations.
 
 For a random 5 x 5 Matrix, we estimate the manhattan distance between each pair of observations: 
 The result is a 25 x 25 matrix with weights for each pair of observations (ij).
 
 <div align = "center">
- <img src="raw_matrix.png" height = 300 width = 300> <img src="weights_matrix.png" height = 300 width = 300>
+ <img src="weights_matrix.png" height = 300 width = 300>
 </div>
+
+
+<div align = "center">
+ <img src="checker_matrix.png" height = 300 width = 300> <img src="random_matrix.png" height = 300 width = 300>
+</div>
+
+
 
 
 ## ISING MODEL DATA
