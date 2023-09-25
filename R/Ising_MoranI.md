@@ -37,7 +37,7 @@ For a random 5 x 5 Matrix, we estimate the manhattan distance between each pair 
 The result is a 25 x 25 matrix with weights for each pair of observations (ij).
 
 <div align = "center">
- <img src="weights_matrix.png" height = 300 width = 300>
+ <img src="weights_matrix.png" height = 500 width = 500>
 </div>
 
 
