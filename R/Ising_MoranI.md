@@ -58,7 +58,7 @@ The result is a 25 x 25 matrix with weights for each pair of observations (ij).
 ## ISING MODEL DATA
 
 <div align = "center">
-  <img src="T2_269.jpeg" height = 300 width = 300>
+  <img src="T2_269.jpeg" height = 500 width = 500>
 </div>
 
 ```
