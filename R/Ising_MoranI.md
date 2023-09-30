@@ -87,31 +87,82 @@ The maximum distance between neighbours (H) defined to calculate the weights mat
 Legend of colors: Black (distance > H); proximity increases from cyan to purple (distance). 
 
 
+### A method for Analizing a Large Matrix
+Analyses of Distance, such as phylogenetics, networks, geographic; require analyzing a matrix of distances between elements (ij). This distance matrices can be large, and computers are often limited in their capacity of storing and handling data in RAM. For example, this limits are reached when analyzing an Ising model of 500 x 500 elements. In this matrix there are 250 000 elements, and the distance matrix required is 250 000 x 250 000. A normal function such as dist() would saturate computers memory. hence large matrices must be analized element by element. Here is a code to do such task, calculating Moran´s Index.
 
 
-### Check data set
 ```
-readLines(paste(path2ising,fls[1], sep = ""), n=10)
-T1.500 = read.table(paste(path2ising,fls[1], sep = ""),header=F, skip=1)
-T2.269 = read.table(paste(path2ising,fls[2], sep = ""),header=F, skip=1)
-T3.500 = read.table(paste(path2ising,fls[3], sep = ""),header=F, skip=1)
+# LIBRARIES
+require(stringr)
 
-VT1 = c(as.matrix(T1.500))
-VT2 = c(as.matrix(T2.269))
-VT3 = c(as.matrix(T3.500))
+# DATA.
+# For this example, we can build a random matrix of 500 x 500 filled with 0s and 1s.
+DATA = matrix(nrow=500, ncol=500, data=rbinom(size = 1, n = 250000, prob = 0.5))
 
-lat.vt1 = rep(1:100, 100)
-lon.vt1 = sort(rep(1:100, 100))
+# REDUCE THE MATRIX TO STRINGS
 
-M.T1.BISQ = lctools::moransI(cbind(lon.vt1, lat.vt1), 8, VT1, WType ="Bi-square")
-M.T1.BISQ.20 = lctools::moransI(cbind(lon.vt1, lat.vt1), 20, VT1, WType ="Bi-square")
-M.T1.BISQ.50 = lctools::moransI(cbind(lon.vt1, lat.vt1), 50, VT1, WType ="Bi-square")
-M.T1.BISQ.1000 = lctools::moransI(cbind(lon.vt1, lat.vt1), 1000, VT1, WType ="Bi-square")
-M.T1.BISQ.9999 = lctools::moransI(cbind(lon.vt1, lat.vt1), 9999, VT1, WType ="Bi-square")
+f.data = function(x){
+       paste(D[,x], collapse='')}
 
-M.T2.BISQ = lctools::moransI(cbind(lon.vt1, lat.vt1), 1000, VT2, WType ="Bi-square")
-M.T3.BISQ = lctools::moransI(cbind(lon.vt1, lat.vt1), 1000, VT3, WType ="Bi-square")
-#saveRDS(list(M.T1.BINOM, M.T1.BISQ.50, M.T1.BISQ.1000, M.T1.BISQ.10000), "moran_T1.5.rds")
+D = sapply(1:nrow(DATA), f.data)
+
+# D is a vector of 1 x 500, with strings with 500 caracters, either 0 or 1.
+
+# An element in D can be found with the coordenates y(row) and x(column)
+# For example, to finding the element in the coordinates y and x
+y = 3 # row (latitude)
+x = 2 # column (longitude)
+  
+xy = str_sub(D[y], x, x)
+
+# There are 500 x 500 elements in the matrix D, and these can be found with a function f.yx.
+
+f.yx = function(yx){
+  y = yx[1]
+  x = yx[2]
+  str_sub(D[y], x, x)
+}
+
+# For the combinations of coordinates yx
+yx = combn(1:500, 2) # Nota that these are coordinates of the half of the matrix. Pairs of elements are considered symetric ij = ji. Hence we just analyse the half of the combinations ij
+
+# For further analyses we give a unique name to each element
+colnames(yx)<-paste("ix", 1:ncol(yx), sep = "_")
+
+# Lets call a pair of elements i,j from D
+i = f.yx(yx[,1])
+j = f.yx(yx[,2])
+
+# Are they equal?
+j == i
+
+# DEFINING THE WEIGHT MATRIX Wij of D
+# In the Moran index, only the pair of elements that are determined by the weight matrix are used to calculate the index. Thus we only need to find these elements.
+
+# MANHATTAN DISTANCE
+
+f.dif = function(x){
+  yx[,-x]-yx[,x]
+}
+
+s = f.dif(x)
+
+#Meter a s en la funcion para no guardar el elemento en el ambiente, y sacara a los vecinos
+
+f.manhattan = function(x){
+  sum(abs(s[,x])) < H
+  }
+H = 2
+
+Y = lapply(1:ncol(s), f.manhattan)
+names(Y) = colnames(yx)[-x] 
+
+
+
+
+
+
+
 ```
 
 
@@ -144,3 +195,4 @@ image(M.T2.BISQ.9999$W, col=colfunc(length(TEMP))[mypal])
 
 dev.off()
 
+```
