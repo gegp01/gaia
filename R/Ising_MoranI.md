@@ -194,18 +194,17 @@ Z = lapply(1:length(Y), f1)
 f.denom = function(x){Z[[x]][[2]]}
 Zi = unlist(lapply(1:length(Z), f.denom))  
 
-denom = sum(Zi*Zi)  
+denom = sum((Zi*2))  # multiply for 2 because we are only analysing the half of the matrix.
 
 f.num = function(x){Z[[x]][[1]]}
 WijZiZj = unlist(lapply(1:length(Z), f.num))
 
-numer = sum(WijZiZj)
+numer = sum(rep(WijZiZj, 2))
 
-W = length(WijZiZj)  # assuming that weight is binay (either 1 or 0)
-N = length(Z)
+W = length(WijZiZj)*2  # assuming that weight is binay (either 1 or 0)
+N = (length(D)*length(D))
 
 I = (N/W)*(numer/denom)  
-
 I
 
 ```
