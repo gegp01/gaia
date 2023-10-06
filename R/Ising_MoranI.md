@@ -140,28 +140,95 @@ j == i
 # In the Moran index, only the pair of elements that are determined by the weight matrix are used to calculate the index. Thus we only need to find these elements.
 
 # MANHATTAN DISTANCE
+path2ising = "/media/gegp/DATA/gaia/ising/ising_500x500/"
+fls = list.files(path2ising)
 
-f.dif = function(x){
-  yx[,-x]-yx[,x]
+
+# ANALIE DATA AS STRINGS
+D = readLines(paste(path2ising,fls[31], sep = ""))
+D = D[3:502]
+
+require(stringr)
+
+#columna.3 = str_sub(D[1:500], 3, 3)
+# en un sistema de coordenadas x y, se puede saber el valor de una posicion específica con:
+
+y = 3# fila (latitud)
+x = 2# columna (longitud)
+
+  
+xy = str_sub(D[y], x, x)
+
+# HAY 500 x 500 elementos en la matriz D
+# uno de esos 25000 elementos xy pueden encontrasrse con la funcion de f.yx
+
+f.yx = function(yx){
+  y = yx[1]
+  x = yx[2]
+  str_sub(D[y], x, x)
 }
 
-s = f.dif(x)
+yx = combn(1:500, 2) # FOR ALL ONE SIDE COMBINATIONS OUTSIDE THE DIAGONAL
+# TO ADD DIAGONAL: yx_ = cbind(t(cbind(1:5, 1:5)), yx)
 
-#Meter a s en la funcion para no guardar el elemento en el ambiente, y sacara a los vecinos
+colnames(yx)<-paste("ix", 1:ncol(yx), sep = "_")
 
-f.manhattan = function(x){
-  sum(abs(s[,x])) < H
+
+# DEFINE THE WEIGHT MATRIX W WITH MANHATTAN DISTANCE
+
+H = 3
+# Function for estimating the zi and zj values where wij is not 0.
+# Multiplying wij*zi*zj will be 0 for all of them and they will not contribute to the sum in the numerator.
+  
+f0 = function(x){
+  f.dif = function(x){
+    yx[,-x]-yx[,x]
   }
-H = 2
 
-Y = lapply(1:ncol(s), f.manhattan)
-names(Y) = colnames(yx)[-x] 
+  s = f.dif(x)
+  
+  n = ncol(s)
+  a = NULL
 
+  for(i in 1:n){
+    a[i] = sum(abs(s[,i]))
+    }
+  yx[,colnames(s[,a<H])]
+  }
 
+Y = lapply(1:(ncol(yx)-1), f0)
+#Y = lapply(1:100000, f0)
 
+f1 = function(x){
+  b = NULL
+  for(i in 1:ncol(Y[[x]])){
+    b[i] = f.yx(Y[[x]][,i])
+    }
+  xi = as.numeric(f.yx(yx[,x]))
+  zi = xi-0.5
+  zj = as.numeric(b)-0.5
+  zizj = zj * zi
+  list(zizj, zi*zi)
+}
 
+Z = lapply(1:length(Y), f1)  
 
+f.denom = function(x){Z[[x]][[2]]}
+Zi = unlist(lapply(1:length(Z), f.denom))  
 
+denom = sum(Zi*Zi)  
+
+f.num = function(x){Z[[x]][[1]]}
+WijZiZj = unlist(lapply(1:length(Z), f.num))
+
+numer = sum(WijZiZj)
+
+W = length(WijZiZj)  # assuming that weight is binay (either 1 or 0)
+N = length(Z)
+
+I = (N/W)*(numer/denom)  
+
+I
 
 ```
 
