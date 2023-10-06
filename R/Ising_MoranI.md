@@ -123,6 +123,7 @@ f.yx = function(yx){
   str_sub(D[y], x, x)
 }
 
+
 # For the combinations of coordinates yx
 yx = combn(1:500, 2) # Nota that these are coordinates of the half of the matrix. Pairs of elements are considered symetric ij = ji. Hence we just analyse the half of the combinations ij
 
@@ -135,30 +136,13 @@ j = f.yx(yx[,2])
 
 # Are they equal?
 j == i
+```
 
-# DEFINING THE WEIGHT MATRIX Wij of D
-# In the Moran index, only the pair of elements that are determined by the weight matrix are used to calculate the index. Thus we only need to find these elements.
+##### DEFINING THE WEIGHT MATRIX Wij of D
+In the Moran index, only the pair of elements that are determined by the weight matrix are used to calculate the index. Thus we only need to find these elements.
 
+```
 # MANHATTAN DISTANCE
-path2ising = "/media/gegp/DATA/gaia/ising/ising_500x500/"
-fls = list.files(path2ising)
-
-
-# ANALIE DATA AS STRINGS
-D = readLines(paste(path2ising,fls[31], sep = ""))
-D = D[3:502]
-
-require(stringr)
-
-#columna.3 = str_sub(D[1:500], 3, 3)
-# en un sistema de coordenadas x y, se puede saber el valor de una posicion específica con:
-
-y = 3# fila (latitud)
-x = 2# columna (longitud)
-
-  
-xy = str_sub(D[y], x, x)
-
 # HAY 500 x 500 elementos en la matriz D
 # uno de esos 25000 elementos xy pueden encontrasrse con la funcion de f.yx
 
@@ -168,15 +152,16 @@ f.yx = function(yx){
   str_sub(D[y], x, x)
 }
 
-yx = combn(1:500, 2) # FOR ALL ONE SIDE COMBINATIONS OUTSIDE THE DIAGONAL
+# FOR ALL ONE SIDE COMBINATIONS OUTSIDE THE DIAGONAL
 # TO ADD DIAGONAL: yx_ = cbind(t(cbind(1:5, 1:5)), yx)
 
+yx = combn(1:500, 2)
 colnames(yx)<-paste("ix", 1:ncol(yx), sep = "_")
 
-
 # DEFINE THE WEIGHT MATRIX W WITH MANHATTAN DISTANCE
-
+# H is the maximum distance of the neighbors
 H = 3
+
 # Function for estimating the zi and zj values where wij is not 0.
 # Multiplying wij*zi*zj will be 0 for all of them and they will not contribute to the sum in the numerator.
   
@@ -196,8 +181,10 @@ f0 = function(x){
   yx[,colnames(s[,a<H])]
   }
 
-Y = lapply(1:(ncol(yx)-1), f0)
-#Y = lapply(1:100000, f0)
+# This will generate Y, a list with data for half of the elemtns off diagonal that are meaningfull (wij != 0).  
+# The process can be partitioned with Y = lapply(1:100000, f0)
+
+Y = lapply(1:(ncol(yx)-1), f0) 
 
 f1 = function(x){
   b = NULL
@@ -263,3 +250,6 @@ image(M.T2.BISQ.9999$W, col=colfunc(length(TEMP))[mypal])
 dev.off()
 
 ```
+
+
+
