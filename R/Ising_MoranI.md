@@ -209,6 +209,11 @@ I
 
 ```
 
+#### Compare the estimates of I with our code and the tools in lctools, for Ising 100 x 100.
+
+<img src="compare_Icode_lctools.png"/>
+
+The estimated values of I are consistent between methods (our code vs. lctools). The Ising at the middle is the critical point at 2.69°C, while the other figures capture the Ising model outside the critical point (consistently, estimated I decreases towards 0).
 
 
 ### Graph results
