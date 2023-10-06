@@ -209,7 +209,7 @@ I
 
 ```
 
-#### Compare the estimates of I with our code and the tools in lctools, for Ising 100 x 100.
+#### For Ising 100 x 100, compare the estimates of I with our code and the moransI() function in lctools.
 
 <img src="compare_Icode_lctools.png"/>
 
