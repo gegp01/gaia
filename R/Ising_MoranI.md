@@ -215,36 +215,6 @@ I
 
 The estimated values of I are consistent between methods (our code vs. lctools). The Ising at the middle is the critical point at 2.69°C, while the other figures capture the Ising model outside the critical point (consistently, estimated I decreases towards 0).
 
-
-### Graph results
-
-```
-M.T1 = M.T1.BISQ.1000
-jpeg("ising_T1.5_10000neighbors.jpeg")
-pal <- colorRampPalette(c("black", "azure"))
-image(M.T1$W, col = pal(5))
-title(main=c("p =", round(M.T1$p.value.randomization), 3))
-dev.off()
-
-jpeg("~/gaia/ising/weights.jpeg", quality = 100, height = 500, width=1500)
-# svg("~/gaia/ising/weights.svg")
-
-m = rbind(c(1,2,3))
-layout(m)
-
-image(as.matrix(T2.269), col = c(0,1))
-
-TEMP = c(0:10)/10
-colfunc <- colorRampPalette(c("black", "azure"))
-mypal = as.numeric(cut(M.T2.BISQ.1000$W, TEMP))
-image(M.T2.BISQ.1000$W, col=colfunc(length(TEMP))[mypal])
-
-mypal = as.numeric(cut(M.T2.BISQ.9999$W, TEMP))
-image(M.T2.BISQ.9999$W, col=colfunc(length(TEMP))[mypal])
-
-dev.off()
-
-```
-
+Our method allows calculating the Morans Index in a large matrix, without saturating the RAM. While the method in lctools cannot compute the Morans I for a matrix of 500 x 500, our method allows us to do so in some time.  
 
 
