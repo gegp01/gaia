@@ -74,22 +74,13 @@ The maximum distance between neighbours (H) defined to calculate the weights mat
   <img src="I_bandwith_plot.jpeg" height = 500 width = 500>
 </div>
 
-#### Weight matrices at different Bandwidths 
-
-<div align = "center">
-  <img src="W_1000.png" height = 500 width = 500>
-</div>
-
-<div align = "center">
-  <img src="W_9999.png" height = 500 width = 500>
-</div>
-
 Legend of colors: Black (distance > H); proximity increases from cyan to purple (distance). 
 
 
 ### A method for Analizing a Large Matrix
-Analyses of Distance, such as phylogenetics, networks, geographic; require analyzing a matrix of distances between elements (ij). This distance matrices can be large, and computers are often limited in their capacity of storing and handling data in RAM. For example, this limits are reached when analyzing an Ising model of 500 x 500 elements. In this matrix there are 250 000 elements, and the distance matrix required is 250 000 x 250 000. A normal function such as dist() would saturate computers memory. hence large matrices must be analized element by element. Here is a code to do such task, calculating Moran´s Index.
+Analyses of Distance, such as phylogenetics, networks, geographic; require analyzing a matrix of distances between elements (ij). This distance matrices can be large, and computers are often limited in their capacity of storing and handling data in RAM. For example, this limits are reached when analyzing an Ising model of 500 rows x 500 columns. In this matrix there are 250 000 elements, and the distance matrix required is 250 000 x 250 000. 
 
+A normal function such as dist() would saturate computers memory. Hence large matrices must be analized element by element. Here is a code to do such task, calculating Moran´s Index.
 
 ```
 # LIBRARIES
