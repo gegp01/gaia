@@ -19,11 +19,11 @@ $$ z_i = x_i - \overline{x} $$
 $$ z_j = x_j - \overline{x} $$
 
 
-As suggested by <a href ="http://lctools.science/lctools/" target="_blank">Stamatis Kalogirou</a> we can define the weight matrix W as  1 minus the distance between a pair of observations, divided by an arbitrary maximum distance (<i>H</i>). Values > <i>H</i> are considered as 0.
+<a href ="http://lctools.science/lctools/" target="_blank">Stamatis Kalogirou</a> is the author of the function moransI() that calculates Moran Index in the R library lctools. In this function the weight matrix W is defined as 1 minus the euclidean distance between a pair of observations, divided by an arbitrary maximum distance (<i>H</i>). Values > <i>H</i> are considered as 0.
 
 $$ (1-({dist_{ij} \over H})²)² $$
 
-The distance between each pair of points ($dist_ij$) is calculated as the Manhatan distance: 
+Here we consider the distance between each pair of points ($dist_ij$) as the Manhatan distance: 
 
 $$ |lat_i - lat_j| + |lon_i - lon_j| $$  
 
