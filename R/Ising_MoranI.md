@@ -1,4 +1,4 @@
-# Code used for analyzing spatial structure in the Ising model of criticality
+# Analyzing spatial structure in the Ising model of criticality
 
 Morans Index (I) estimates the spatial structure in the Data (i.e. how likely is to predict the value of an spatial observation with values of the neighbours arround the observation).
 
