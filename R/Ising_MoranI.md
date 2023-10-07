@@ -19,7 +19,7 @@ $$ z_i = x_i - \overline{x} $$
 $$ z_j = x_j - \overline{x} $$
 
 
-As suggested by <a href ="http://lctools.science/lctools/" target="_blank">Stamatis Kalogirou</a> we can define the weight matrix W as 1 minus the ratio between distance between a pair of observations divided by an arbitrary maximum distance (<i>H</i>); and values > <i>H</i> are considered as 0.
+As suggested by <a href ="http://lctools.science/lctools/" target="_blank">Stamatis Kalogirou</a> we can define the weight matrix W as  1 minus the distance between a pair of observations, divided by an arbitrary maximum distance (<i>H</i>). Values > <i>H</i> are considered as 0.
 
 $$ (1-({dist_{ij} \over H})²)² $$
 
@@ -27,33 +27,15 @@ The distance between each pair of points ($dist_ij$) is calculated as the Manhat
 
 $$ |lat_i - lat_j| + |lon_i - lon_j| $$  
 
-
-
-## Calculating the weight matrix. 
-
-The value of Morans Index is sensitive to the weights matrix W that we assign in the calculations.
-
-For a random 5 x 5 Matrix, we estimate the manhattan distance between each pair of observations: 
-The result is a 25 x 25 matrix with weights for each pair of observations (ij).
-
-<div align = "center">
- <img src="weights_matrix.png" height = 500 width = 500>
-</div>
-
+<br><br>
 
 <div align = "center">
  <img src="checker_matrix.png" height = 300 width = 300> <img src="random_matrix.png" height = 300 width = 300> <img src="nested_matrix.png" height = 300 width = 300>
 </div>
 
+Moran Index can have values of -1 to 1; and departs from zero when data is not random and has spatial structure. Structure can be either anticorrelated (-1) or correlated (1).
+
 </br></br>
-
-<div>The weight matrix in lctools (with Bandwidth = 4) is represented by a matrix with zeros in the diagonal and in all pairs of observations (ij) separated by a distance larger that <i>H</i>.
-
-<div align = "center">
-  <img src="weights_lctools_matrix.png" height = 500 width = 500>
-</div>
-</div>
-
 
 ## ISING MODEL DATA
 
@@ -75,6 +57,22 @@ The maximum distance between neighbours (H) defined to calculate the weights mat
 </div>
 
 Legend of colors: Black (distance > H); proximity increases from cyan to purple (distance). 
+
+
+## The weight matrix. 
+
+<div>The weight matrix in lctools (with Bandwidth = 4) is represented by a matrix with zeros in the diagonal and in all pairs of observations (ij) separated by a distance larger that <i>H</i>.
+
+<div align = "center">
+  <img src="weights_lctools_matrix.png" height = 500 width = 500>
+</div>
+</div>
+
+The weight matrix grows exponentially as data accumulates and thus can be a very large. For a random 5 x 5 Matrix, calculating manhattan distance between each pair of observations results in a weights matrix of 25 x 25 pairs of observations (ij).
+
+<div align = "center">
+ <img src="weights_matrix.png" height = 500 width = 500>
+</div>
 
 
 ### A method for Analizing a Large Matrix
