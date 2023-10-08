@@ -1,8 +1,8 @@
 # Analyzing spatial structure in the Ising model of criticality
 
-Morans Index (I) estimates the spatial structure in the Data (i.e. how likely is to predict the value of an spatial observation with values of the neighbours arround the observation).
+## Moran's Index (I)
 
-This index is calculated as the ratio of the number of observations (N) divided by the Weights (W) indicating whether an observation should be accounted for the calculation or not:
+The index estimates the spatial structure in the Data, i.e. how likely is to predict the value of an spatial observation with values of the neighbours arround the observation. This index is calculated as the ratio of the number of observations (N) divided by the Weights (W) indicating whether an observation should be accounted for the calculation or not:
 
 $$  <i>I = {N\over W} {A \over B} </i> $$
 
@@ -19,11 +19,11 @@ $$ z_i = x_i - \overline{x} $$
 $$ z_j = x_j - \overline{x} $$
 
 
-<a href ="http://lctools.science/lctools/" target="_blank">Stamatis Kalogirou</a> is the author of the function moransI() that calculates Moran Index in the R library lctools. In this function the weight matrix W is defined as 1 minus the euclidean distance between a pair of observations, divided by an arbitrary maximum distance (<i>H</i>). Values > <i>H</i> are considered as 0.
+<a href ="http://lctools.science/lctools/" target="_blank">Stamatis Kalogirou</a> is the author of the function <i>moransI()</i> that calculates Moran Index in the R library <b>lctools</b>. In this function the weight matrix W is defined as 1 minus the euclidean distance between a pair of observations, divided by an arbitrary maximum distance (<i>H</i>). Values > <i>H</i> are considered as 0.
 
 $$ (1-({dist_{ij} \over H})²)² $$
 
-Here we consider the distance between each pair of points ($dist_ij$) as the Manhatan distance: 
+Here, we consider the distance between each pair of points ($dist_ij$) as the Manhatan distance: 
 
 $$ |lat_i - lat_j| + |lon_i - lon_j| $$  
 
@@ -37,8 +37,7 @@ Moran Index can have values of -1 to 1; and departs from zero when data is not r
 
 </br></br>
 
-## ISING MODEL DATA
-
+## Assesing spatial structure in the Ising model
 <div align = "center">
   <img src="T2_269.jpeg" height = 500 width = 500>
 </div>
@@ -55,8 +54,6 @@ The maximum distance between neighbours (H) defined to calculate the weights mat
 <div align = "center">
   <img src="I_bandwith_plot.jpeg" height = 500 width = 500>
 </div>
-
-Legend of colors: Black (distance > H); proximity increases from cyan to purple (distance). 
 
 
 ## The weight matrix. 
@@ -76,9 +73,9 @@ The weight matrix grows exponentially as data accumulates and thus can be a very
 
 
 ### A method for Analizing a Large Matrix
-Analyses of Distance, such as phylogenetics, networks, geographic; require analyzing a matrix of distances between elements (ij). This distance matrices can be large, and computers are often limited in their capacity of storing and handling data in RAM. For example, this limits are reached when analyzing an Ising model of 500 rows x 500 columns. In this matrix there are 250 000 elements, and the distance matrix required is 250 000 x 250 000. 
+Analyses of Distance are fundamental to investigate phylogenetics, networks and geographic correlations. This requires analyzing a matrix of distances between elements (ij); a matrix that can be large and computers struggle in storing and handling it in RAM. For example, this limits are reached when analyzing an Ising model of 500 rows x 500 columns. In this matrix there are 250 000 elements, and the distance matrix required is 250 000 x 250 000. 
 
-A normal function such as dist() would saturate computers memory. Hence large matrices must be analized element by element. Here is a code to do such task, calculating Moran´s Index.
+A normal function such as <i>dist()</i> would saturate computers memory. Hence large matrices must be analized element by element. Here is a code to do such task, calculating Moran´s Index.
 
 ```
 # LIBRARIES
