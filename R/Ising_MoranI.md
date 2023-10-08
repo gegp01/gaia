@@ -208,8 +208,24 @@ I
 
 <img src="compare_Icode_lctools.png"/>
 
-The estimated values of I are consistent between methods (our code vs. lctools). The Ising at the middle is the critical point at 2.69°C, while the other figures capture the Ising model outside the critical point (consistently, estimated I decreases towards 0).
+The estimated values of I are consistent between methods (our code vs. lctools). The Ising image at the middle of the panel, is the critical point at 2.69°C, and has the highest Morans Index than the other two images of Ising outside the critical point; consistently, the index decreases towards 0.
 
-Our method allows calculating the Morans Index in a large matrix, without saturating the RAM. While the method in lctools cannot compute the Morans I for a matrix of 500 x 500, our method allows us to do so in some time.  
+Our method allows calculating the Morans Index in a large matrix, without saturating the RAM. While the method in lctools cannot compute the Morans I for a matrix of 500 x 500.  
+
+Whith this capability we estimated Morans Index across Isisng simulations in a lattice of 500 x 500.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
