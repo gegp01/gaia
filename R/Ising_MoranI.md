@@ -210,9 +210,23 @@ I
 
 The estimated values of I are consistent between methods (our code vs. lctools). The Ising image at the middle of the panel, is the critical point at 2.69°C, and has the highest Morans Index than the other two images of Ising outside the critical point; consistently, the index decreases towards 0.
 
-Our method allows calculating the Morans Index in a large matrix, without saturating the RAM. While the method in lctools cannot compute the Morans I for a matrix of 500 x 500.  
+Our method allows calculating the Morans Index for a large matrix of 500 x 500, without saturating the RAM; whereas the method in lctools saturates computers RAM. 
 
-Whith this capability we estimated Morans Index across Isisng simulations in a lattice of 500 x 500.
+## Spatial structure of local air temperatures.
+
+#### Is there spatial structure of temperature across the world?
+
+Morans Index across time global, in land, and at sea...
+
+
+#### Are linked systems loosing their structure?
+
+PCA ANALYSIS
+
+
+
+
+
 
 
 
