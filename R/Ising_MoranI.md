@@ -1,8 +1,8 @@
 # Analyzing spatial structure in the Ising model of criticality
 
-## Moran's Index (I)
+## Moran's Index (<i>I</i>)
 
-The index estimates the spatial structure in the Data, i.e. how likely is to predict the value of an spatial observation with values of the neighbours arround the observation. This index is calculated as the ratio of the number of observations (N) divided by the Weights (W) indicating whether an observation should be accounted for the calculation or not:
+The index estimates the spatial structure in the Data, i.e. how likely is to predict the value of an spatial observation with values of the neighbours arround the observation. This index is calculated as the ratio of the number of observations (N) divided by the Weights (W) indicating whether an observation should be accounted for in the calculation of I or not:
 
 $$  <i>I = {N\over W} {A \over B} </i> $$
 
@@ -23,7 +23,7 @@ $$ z_j = x_j - \overline{x} $$
 
 $$ (1-({dist_{ij} \over H})²)² $$
 
-Here, we consider the distance between each pair of points ($dist_ij$) as the Manhatan distance: 
+Here, we will consider the distance between each pair of points ($dist_ij$) as the Manhatan distance: 
 
 $$ |lat_i - lat_j| + |lon_i - lon_j| $$  
 
@@ -49,7 +49,7 @@ Moran Index can have values of -1 to 1; and departs from zero when data is not r
 
 ### Assigning the maximum distance between neighbors
 
-The maximum distance between neighbours (H) defined to calculate the weights matrix (W), influences the value of I. As H increases I decreases. 
+The maximum distance between neighbours (H) defined to calculate the weights matrix (W), influences the value of I. As <i>H</i> increases <i>I</i> decreases. 
 
 <div align = "center">
   <img src="I_bandwith_plot.jpeg" height = 500 width = 500>
