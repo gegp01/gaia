@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visualizador de Mapas GeoJSON</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    #mapContainer {
+      width: 900px;
+      height: 1000px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Human Footprint on the Habitat of Rodent-hosts of Hantavirus by 2015 </h1>
+  
+  <div width=800px>
+  <p>The maps will present in orange, the habitat most impacted by land use change in 2015.</p>
+    <ul>
+      <li><a href="https://gegp01.github.io/new_world_hantavirus/Mgen_hosts.zip">Download distribution maps of the hosts of Hantvirus M gen. The geojson maps are named as the rodent species</a></li>
+      <li>Open de file with maps in your local drive and select the geojson files to display them in this viewer</li>
+  </div>
+    
+  <input type="file" id="geojsonFile" accept=".geojson" multiple />
+  <div id="mapContainer"></div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    // Esperar a que el DOM se cargue completamente
+    document.addEventListener("DOMContentLoaded", function() {
+      var map = createMap(); // Crear el mapa Leaflet
+      var geojsonLayers = []; // Almacenar las capas GeoJSON
+
+      // Manejar el evento "change" del input de archivo
+      var fileInput = document.getElementById("geojsonFile");
+      fileInput.addEventListener("change", function(e) {
+        var files = e.target.files;
+
+        // Eliminar las capas GeoJSON existentes
+        geojsonLayers.forEach(function(layer) {
+          map.removeLayer(layer);
+        });
+        geojsonLayers = [];
+
+        // Leer y agregar las capas GeoJSON al mapa
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+
+          // Leer el archivo GeoJSON
+          var reader = new FileReader();
+          reader.onload = createGeoJSONLoader(file);
+          reader.readAsText(file);
+        }
+      });
+
+      // Crear el mapa Leaflet
+      function createMap() {
+        // var map = L.map("mapContainer").setView([51.505, -0.09], 13);
+        // Centrar el mapa en el ecuador y reducir la escala
+        var map = L.map("mapContainer").setView([-10, -76], 3.5);
+
+        // Agregar una capa de mapa base (por ejemplo, OpenStreetMap)
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "Map data &copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors",
+          maxZoom: 18,
+        }).addTo(map);
+
+        return map;
+      }
+// Crear el cargador de GeoJSON para un archivo dado
+function createGeoJSONLoader(file) {
+  return function(e) {
+    var geojson = JSON.parse(e.target.result);
+
+    // Crear una capa GeoJSON y agregarla al mapa
+    var geojsonLayer = L.geoJSON(geojson, {
+      style: function(feature) {
+        var x1 = feature.properties.X1; // Obtén el valor de la variable X1 del GeoJSON
+
+        // Calcula el valor de opacidad (de 0 a 1) basado en x1
+        var opacity = 0.5*(1-(x1 / 1));
+
+        // Crea un color rojo con la opacidad calculada
+        var fillColor = 'rgba(255, 87, 51, ' + opacity + ')';
+        return {
+          fillColor: fillColor,
+          weight: 0, // Establece el peso del borde en 0 para que sea transparente
+          fillOpacity: 1
+        };
+      }
+    }).addTo(map);
+    geojsonLayers.push(geojsonLayer);
+  };
+}
+
+    
+    });
+  </script>
+</body>
+</html>
