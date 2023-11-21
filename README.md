@@ -1,6 +1,6 @@
 # GAIA
 
-## Global Analysis and Inference on the Autonomous Organization of the Planet. 
+## Global Analysis and Inference on the Autonomous-organization of the Planet. 
 
 Análisis sobre la Autorganización en la Tierra 
 
