@@ -1,12 +1,15 @@
-Global time series are often incomplete, hence missing data must be infered before performing analyses like Principal Components and Singular Value Decomposition.
-Here, a progessive interpolation is implemented on the Global time series of air temperatures reported by Berkeley Earth.
+### Progressive Interpolation of Missing Data
 
-##### (1) Read data from ncdf file.
+Global time series are often incomplete, hence missing data must be infered before performing analyses like Principal Components and Singular Value Decomposition.
+Here, a progessive interpolation is implemented on the Global time series of air temperatures reported by Berkeley Earth (https://berkeleyearth.org/data/).
+
+##### (1) Read data from ncdf file, quantify and visualize missing data.
 ~~~
-# Libraries
+# R code
+# R libraries
 require(ncdf4)
 
-# Path to Berkeley Earth data
+# Path to Berkeley Earth data.
 path2temp<-"/media/gegp/DATA/gaia/temperatures/Land_and_Ocean_EqualArea.nc"
 
 nc <- nc_open(path2temp)
