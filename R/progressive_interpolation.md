@@ -55,9 +55,10 @@ legend("left", inset = 0.05, legend = c("NA", "datum"), fill = c("black", "light
        , border="lightgrey")
 dev.off()
  ~~~
-
+##### Missing data in Berkeley Earth data.
 <div align=center>
-  <img src="", height = 300>
+  <img src="figures/gaps_in_time_series.png", height = 400>
+  <img src="figures/map_gaps_in_time_series.png", height = 400>
 </div>
 
 
