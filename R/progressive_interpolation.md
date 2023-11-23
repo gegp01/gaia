@@ -1,7 +1,21 @@
 ### Progressive Interpolation of Missing Data
 
-Global time series are often incomplete, hence missing data must be infered before performing analyses like Principal Components and Singular Value Decomposition.
-Here, a progessive interpolation is implemented on the Global time series of air temperatures reported by Berkeley Earth (https://berkeleyearth.org/data/).
+Global time series are often incomplete, hence missing data must be infered before performing analyses like Principal Components and Singular Value Decomposition. Here, a progessive interpolation is implemented on the Global time series of air temperatures reported by Berkeley Earth (https://berkeleyearth.org/data/).
+
+In the Berkeley database, 6.17 % of the data are missing, in particular recent data in large regions of Antartica and Africa (Figure 1). The progressive method was implemented in a progressive sequence of years: 2, 5, 10, 20, 40, 60, 80, 100, 110. With these iterations, the algorithm interpolated 72.5 % of the missing data, resulting in an interpolated database with 1.7 % of missing data concentrated in recent periods of Antartica (Figure 2).  
+
+<div align=center>
+  <h4>Figure 1. Original dataset.</h2>
+  <p>
+    <img src="figures/gaps_in_time_series.png", height = 400>
+    <img src="figures/map_gaps_in_time_series.png", height = 400>
+  </p>
+  <h4>Figure 2. Interpolated dataset.</h2>
+  <p>    <img src="figures/gaps_in_time_series_filled_110yr.png" height = 400>
+    <img src="figures/map_gaps_in_time_series_filled_Z110.png" height = 400>
+  </p>
+</div>
+
 
 ##### (1) Read data from ncdf file, quantify and visualize missing data.
 ~~~
@@ -59,6 +73,7 @@ legend("left", inset = 0.05, legend = c("NA", "datum"), fill = c("black", "light
 dev.off()
  ~~~
 ##### Missing data in Berkeley Earth data.
+
 <div align=center>
   <img src="figures/gaps_in_time_series.png", height = 400>
   <img src="figures/map_gaps_in_time_series.png", height = 400>
@@ -147,6 +162,7 @@ Z110 = do.call(rbind, Q_)
   <img src="figures/gaps_in_time_series.png" height = 300>
   <img src="figures/gaps_in_time_series_filled_2yr.png" height = 300>
   <img src="figures/gaps_in_time_series_filled_110yr.png" height = 300>
+  <img src="figures/map_gaps_in_time_series_filled_Z110.png" height = 600>
 </div>
 
 
