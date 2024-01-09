@@ -90,71 +90,91 @@ The above procedure was repeated on the database by gradually increasing the ran
 The following function will perform the interpolation, based on a fixed value ventana, which corresponds to the number of years of the range period. For example, ventana = 2 means that the range period considered will be 2 year before and 2 years after the missing value. 
 
 ~~~
-# INTERPOLATE TEMPERATURES
-
-f.fill_2 = function(x){
+# INTERPOLATE TEMPERATURESf.fill_2 = function(x){
   rowX = TEMP[x,]
+  # Identificar datos faltantes en la serie de tiempo
   nas = is.na(rowX)
+  
+  # Definir el rango de la ventana de tiempo.
   ventana = ventana
+  
+  # Definir el limite inferior de la serie.
   limite = ventana*12 + 1
+  
+  # Generar la secuencia a investigar. la nueva serie va entre los limites definidos
   idx = limite:(length(rowX)-limite)
-  seq = (c(-1*(2:1),(1:2))*12) # intervalos de tiempo para hacer el promedio con valores del mismo mes
+  
+  # Definir el intervalo antes y despues del dato faltante.
+  seq = (c(-1*(ventana:1),(1:ventana))*12) # intervalos de tiempo para hacer el promedio con valores del mismo mes
+  
+  #  seq = (c(-1*(2:1),(1:2))*12) # intervalos de tiempo para hacer el promedio con valores del mismo mes
   f1 = function(z){z+seq}
   seq.list = lapply(idx[nas], f1)
   
+  # Si no hay NAS, asigna 0 en la funcion  
   f2 = function(q){ifelse(length(seq.list)==0, 0, mean(na.omit(rowX[seq.list[[q]]])))}
   Y = do.call(rbind, lapply(1:length(seq.list), f2))
+  
+  # Se asignan valores en los NAs 
   rowX[nas]<-Y
   rowX
   }
 
+
 ~~~
 
-We implement the above function gradually as follows:
+Implement the above function progresivelly as follows:
 ~~~
+
+TEMP = TEMP
+ventana = 1
+Q_ = lapply(1:nrow(TEMP), f.fill_2)  
+Z1 = do.call(rbind, Q_)
+
+TEMP = Z1
 ventana = 2
 Q_ = lapply(1:nrow(TEMP), f.fill_2)  
 Z2 = do.call(rbind, Q_)
 
 TEMP = Z2
+ventana = 3
+Q_ = lapply(1:nrow(TEMP), f.fill_2)  
+Z3 = do.call(rbind, Q_)
+
+TEMP = Z3
+ventana = 4
+Q_ = lapply(1:nrow(TEMP), f.fill_2)  
+Z4 = do.call(rbind, Q_)
+
+TEMP = Z4
 ventana = 5
 Q_ = lapply(1:nrow(TEMP), f.fill_2)  
 Z5 = do.call(rbind, Q_)
 
 TEMP = Z5
+ventana = 6
+Q_ = lapply(1:nrow(TEMP), f.fill_2)  
+Z6 = do.call(rbind, Q_)
+
+TEMP = Z6
+ventana = 7
+Q_ = lapply(1:nrow(TEMP), f.fill_2)  
+Z7 = do.call(rbind, Q_)
+
+TEMP = Z7
+ventana = 8
+Q_ = lapply(1:nrow(TEMP), f.fill_2)  
+Z8 = do.call(rbind, Q_)
+
+TEMP = Z8
+ventana = 9
+Q_ = lapply(1:nrow(TEMP), f.fill_2)  
+Z9 = do.call(rbind, Q_)
+
+TEMP = Z9
 ventana = 10
 Q_ = lapply(1:nrow(TEMP), f.fill_2)  
 Z10 = do.call(rbind, Q_)
-
-TEMP = Z10
-ventana = 20
-Q_ = lapply(1:nrow(TEMP), f.fill_2)  
-Z20 = do.call(rbind, Q_)
-
-TEMP = Z20
-ventana = 40
-Q_ = lapply(1:nrow(TEMP), f.fill_2)  
-Z40 = do.call(rbind, Q_)
-
-TEMP = Z40
-ventana = 60
-Q_ = lapply(1:nrow(TEMP), f.fill_2)  
-Z60 = do.call(rbind, Q_)
-
-TEMP = Z60
-ventana = 80
-Q_ = lapply(1:nrow(TEMP), f.fill_2)  
-Z80 = do.call(rbind, Q_)
-
-TEMP = Z80
-ventana = 100
-Q_ = lapply(1:nrow(TEMP), f.fill_2)  
-Z100 = do.call(rbind, Q_)
-
-TEMP = Z100
-ventana = 110
-Q_ = lapply(1:nrow(TEMP), f.fill_2)  
-Z110 = do.call(rbind, Q_)
 
 ~~~
 
