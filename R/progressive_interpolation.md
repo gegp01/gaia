@@ -158,12 +158,5 @@ Z110 = do.call(rbind, Q_)
 
 ~~~
 
-<div align=center>
-  <img src="figures/gaps_in_time_series.png" height = 300>
-  <img src="figures/gaps_in_time_series_filled_2yr.png" height = 300>
-  <img src="figures/gaps_in_time_series_filled_110yr.png" height = 300>
-  <img src="figures/map_gaps_in_time_series_filled_Z110.png" height = 600>
-</div>
-
 
 
