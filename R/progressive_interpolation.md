@@ -11,8 +11,8 @@ In the Berkeley database, 6.17 % of the data are missing, in particular recent d
     <img src="figures/map_gaps_in_time_series.png", height = 400>
   </p>
   <h4>Figure 2. Interpolated dataset.</h2>
-  <p>    <img src="figures/gaps_in_time_series_filled_110yr.png" height = 400>
-    <img src="figures/map_gaps_in_time_series_filled_Z110.png" height = 400>
+  <p>    <img src="figures/gaps_in_time_series_filled_10yr.png" height = 400>
+    <img src="figures/map_gaps_in_time_series_filled_Z10.png" height = 400>
   </p>
 </div>
 
