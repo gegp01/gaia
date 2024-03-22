@@ -1,5 +1,11 @@
 ### Progressive Interpolation of Missing Data
 
+Gabriel E García Peña
+Centro de Ciencias de la Complejidad
+Universidad Nacional Autonoma de México
+
+
+
 Global time series are often incomplete, hence missing data must be infered before performing analyses like Principal Components and Singular Value Decomposition. Here, a progessive interpolation is implemented on the Global time series of air temperatures reported by Berkeley Earth (https://berkeleyearth.org/data/).
 
 In the Berkeley database, 6.17 % of the data are missing, in particular recent data in large regions of Antartica and Africa (Figure 1). The progressive method was implemented in a progressive sequence of years: 2, 5, 10, 20, 40, 60, 80, 100, 110. With these iterations, the algorithm interpolated 72.5 % of the missing data, resulting in an interpolated database with 1.7 % of missing data concentrated in recent periods of Antartica (Figure 2).  
