@@ -1,5 +1,9 @@
 # Analyzing spatial structure in the Ising model of criticality
 
+Gabriel E García Peña
+Centro de Ciencias de la Complejidad
+Universidad Nacional Autonoma de México
+
 ## Moran's Index (<i>I</i>)
 
 The index estimates the spatial structure in the Data, i.e. how likely is to predict the value of an spatial observation with values of the neighbours arround the observation. This index is calculated as the ratio of the number of observations (N) divided by the Weights (W) indicating whether an observation should be accounted for in the calculation of I or not:
