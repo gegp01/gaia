@@ -1,8 +1,8 @@
 ### Progressive Interpolation of Missing Data
 
-Gabriel E García Peña
-Centro de Ciencias de la Complejidad
-Universidad Nacional Autonoma de México
+Gabriel E García Peña <br>
+Centro de Ciencias de la Complejidad <br>
+Universidad Nacional Autonoma de México <br>
 
 
 
