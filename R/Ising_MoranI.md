@@ -12,6 +12,15 @@ In this repository, I present:
 
 Overall, the analysis presented suggests that Morans index is maximum at the critical point of the Ising model.
 
+#### For Ising 100 x 100, we compared the estimates of I with our code and the moransI() function in lctools.
+
+<img src="compare_Icode_lctools.png"/>
+
+The estimated values of I are consistent between methods (our code vs. lctools). The Ising image at the middle of the panel, is the critical point at 2.69°C, and has the highest Morans Index than the other two images of Ising outside the critical point; consistently, the index decreases towards 0.
+
+Our method allows calculating the Morans Index for a large matrix of 500 x 500, without saturating the RAM; whereas the method in lctools saturates computers RAM. 
+
+
 
 ## Moran's Index (<i>I</i>)
 
