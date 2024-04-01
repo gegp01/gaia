@@ -4,7 +4,11 @@ Gabriel E García Peña <br>
 Centro de Ciencias de la Complejidad <br>
 Universidad Nacional Autonoma de México <br>
 
-Spatial autocorrelation is commonly analyzed with the Moran Index. However, calculating Moran´s Index may be computationally challenging, as all combinations of locations must be evaluated. In this repository, I present a method to calculate Morans Index in large datasets, that are too big to be calculated with a standard distance matrix (e.g. by using the dist() function). 
+Spatial autocorrelation is commonly analyzed with the Moran Index. However, calculating Moran´s Index may be computationally challenging, as all combinations of locations must be evaluated. In this repository, I present:
+(1) a method to calculate Morans Index in large datasets, that are too big to be calculated with a standard distance matrix (e.g. by using the dist() function). 
+(2) The use of this method to estimate Morans Index in the criticality model of Ising. 
+
+Overall, the analysis presented suggests that Morans index is maximum at the critical point of the Ising model.
 
 
 ## Moran's Index (<i>I</i>)
