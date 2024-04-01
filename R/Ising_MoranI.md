@@ -4,6 +4,9 @@ Gabriel E García Peña <br>
 Centro de Ciencias de la Complejidad <br>
 Universidad Nacional Autonoma de México <br>
 
+Spatial autocorrelation is commonly analyzed with the Moran Index. However, calculating Moran´s Index may be computationally challenging, as all combinations of locations must be evaluated. In this repository, I present a method to calculate Morans Index in large datasets, that are too big to be calculated with a standard distance matrix (e.g. by using the dist() function). 
+
+
 ## Moran's Index (<i>I</i>)
 
 The index estimates the spatial structure in the Data, i.e. how likely is to predict the value of an spatial observation with values of the neighbours arround the observation. This index is calculated as the ratio of the number of observations (N) divided by the Weights (W) indicating whether an observation should be accounted for in the calculation of I or not:
