@@ -21,9 +21,14 @@ month.yr =  paste(month, year, sep="_")
 colnames(tem) = month.yr[1:ncol(tem)]
 row.names(tem) = paste(lon, lat, sep="_")
 
+  TEMP_RANGE = -12:12
+  colfunc <- colorRampPalette(c("darkblue", "azure", "coral3"), space = "rgb")
+  mypal = as.numeric(cut(X, TEMP_RANGE), include.lowest = T)
+  colors = colfunc(length(TEMP_RANGE))[mypal]
+
 #####################################
 
-spdf <- SpatialPointsDataFrame(coords = data.frame(lon, lat), data = data.frame(temperature = tem[,"jan_1930"]),
+spdf <- SpatialPointsDataFrame(coords = data.frame(lon, lat), data = data.frame(temperature = tem[,"jan_1930"], colors = colors),
                                proj4string = CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"))
 
 
