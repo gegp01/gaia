@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1" />
+  <title>GAIA 1990</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/themes/light/main.css" />
+  <style>
+    #viewDiv {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .control-container {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 99;
+      background: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .control {
+      margin-bottom: 20px;
+    }
+
+    .control-label {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+  </style>
+
+  <script src="https://js.arcgis.com/4.12/"></script>
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/SceneView",
+      "esri/Basemap",
+      "esri/layers/TileLayer",
+      "esri/layers/GraphicsLayer",
+      "esri/layers/GeoJSONLayer",
+      "esri/Graphic",
+      "esri/symbols/SimpleMarkerSymbol",
+      "dojo/domReady!"
+    ], function (Map, SceneView, Basemap, TileLayer, GraphicsLayer, GeoJSONLayer, Graphic, SimpleMarkerSymbol) {
+
+      const basemap = new Basemap({
+        baseLayers: [
+          new TileLayer({
+            url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"
+          })
+        ]
+      });
+
+      const map = new Map({
+        basemap: basemap
+      });
+
+      const view = new SceneView({
+        container: "viewDiv",
+        map: map,
+        camera: {
+          position: [20, 22, 25000000],
+        },
+        environment: {
+          background: {
+            type: "color",
+            color: [255, 255, 255, 0]
+          },
+          atmosphereEnabled: false,
+          starsEnabled: false,
+          lighting: {
+            directShadowsEnabled: false,
+            ambientOcclusionEnabled: false,
+            cameraTrackingEnabled: false,
+            date: new Date("2024-12-14T12:00:00"),
+            mainLight: {
+              type: "directional",
+              color: [255, 255, 255],
+              intensity: 0.0
+            },
+            ambientLight: {
+              color: [255, 255, 255],
+              intensity: 1.0
+            }
+          }
+        }
+      });
+
+      fetch("https://gegp01.github.io/CLUES/Major_Ocean_Currents.geojson")
+        .then(response => response.json())
+        .then(data => {
+          const geojsonLayer2 = new GeoJSONLayer({
+            url: "https://gegp01.github.io/CLUES/Major_Ocean_Currents.geojson",
+            renderer: {
+              type: "simple",
+              symbol: {
+                type: "simple-fill",
+                color: [1, 0, 0, 1],
+                outline: {
+                  color: "transparent",
+                  width: 0
+                }
+              }
+            },
+            popupTemplate: {
+              title: "{NAME}",
+              content: "{*}"
+            }
+          });
+
+          map.add(geojsonLayer2);
+        });
+
+//      fetch("https://gegp01.github.io/gaia/svd/1890_modo_1.geojson")
+      fetch("https://gegp01.github.io/gaia/svd/2000_modo_1.geojson")
+        .then(response => response.json())
+        .then(data => {
+          const graphicsLayer = new GraphicsLayer();
+
+          data.features.forEach(feature => {
+            const { red, green, blue, alpha, U } = feature.properties;
+
+            const rgba = [
+              Math.min(Math.max(red, 0), 255),
+              Math.min(Math.max(green, 0), 255),
+              Math.min(Math.max(blue, 0), 255),
+              Math.min(Math.max(alpha, 0), 1)
+            ];
+
+            const point = {
+              type: "point",
+              longitude: feature.geometry.coordinates[0],
+              latitude: feature.geometry.coordinates[1]
+            };
+
+            const symbol = new SimpleMarkerSymbol({
+              size: 8,
+              color: `rgba(${rgba[0]}, ${rgba[1]}, ${rgba[2]}, ${rgba[3]})`,
+              outline: {
+                color: [255, 255, 255],
+                width: 0
+              }
+            });
+
+            const popupTemplate = {
+              title: "Punto de Datos",
+              content: `
+                <b>U:</b> ${U}<br>
+                <b>Red:</b> ${red}<br>
+                <b>Green:</b> ${green}<br>
+                <b>Blue:</b> ${blue}<br>
+                <b>Alpha:</b> ${alpha}
+              `
+            };
+
+            const graphic = new Graphic({
+              geometry: point,
+              symbol: symbol,
+              popupTemplate: popupTemplate
+            });
+
+            graphicsLayer.add(graphic);
+          });
+
+          map.add(graphicsLayer);
+        })
+        .catch(error => console.error('Error fetching GeoJSON:', error));
+
+      const controlContainer = document.createElement("div");
+      controlContainer.classList.add("control-container");
+      document.body.appendChild(controlContainer);
+
+      const hourControl = document.createElement("div");
+      hourControl.classList.add("control");
+      const hourLabel = document.createElement("div");
+      hourLabel.classList.add("control-label");
+      hourLabel.innerText = "Hora de iluminación:";
+      const hourSlider = document.createElement("input");
+      hourSlider.type = "range";
+      hourSlider.id = "hourSlider";
+      hourSlider.min = 0;
+      hourSlider.max = 23;
+      hourSlider.value = 12;
+      hourSlider.step = 1;
+      const hourDisplay = document.createElement("div");
+      hourDisplay.id = "hourDisplay";
+      hourDisplay.innerText = `Hora: ${hourSlider.value}:00`;
+      hourControl.appendChild(hourLabel);
+      hourControl.appendChild(hourSlider);
+      hourControl.appendChild(hourDisplay);
+      controlContainer.appendChild(hourControl);
+
+      hourSlider.addEventListener("input", function () {
+        const hour = parseInt(this.value);
+        const date = new Date(view.environment.lighting.date);
+        date.setHours(hour);
+        view.environment.lighting.date = date;
+        view.environment.lighting = { ...view.environment.lighting, date: date };
+        hourDisplay.innerText = `Hora: ${hour}:00`;
+      });
+
+      const monthControl = document.createElement("div");
+      monthControl.classList.add("control");
+      const monthLabel = document.createElement("div");
+      monthLabel.classList.add("control-label");
+      monthLabel.innerText = "Mes de iluminación:";
+      const monthSlider = document.createElement("input");
+      monthSlider.type = "range";
+      monthSlider.id = "monthSlider";
+      monthSlider.min = 0;
+      monthSlider.max = 11;
+      monthSlider.value = 11;
+      monthSlider.step = 1;
+      const monthDisplay = document.createElement("div");
+      monthDisplay.id = "monthDisplay";
+      monthDisplay.innerText = "Mes: Diciembre";
+      monthControl.appendChild(monthLabel);
+      monthControl.appendChild(monthSlider);
+      monthControl.appendChild(monthDisplay);
+      controlContainer.appendChild(monthControl);
+
+      monthSlider.addEventListener("input", function () {
+        const month = parseInt(this.value);
+        const date = new Date(view.environment.lighting.date);
+        date.setMonth(month);
+        view.environment.lighting.date = date;
+        view.environment.lighting = { ...view.environment.lighting, date: date };
+        const monthNames = [
+          "Enero", "Febrero", "Marzo", "Abril", "Mayo",
+          "Junio", "Julio", "Agosto", "Septiembre",
+          "Octubre", "Noviembre", "Diciembre"
+        ];
+        monthDisplay.innerText = `Mes: ${monthNames[month]}`;
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+
+</html>
