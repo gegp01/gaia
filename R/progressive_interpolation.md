@@ -104,7 +104,9 @@ The above procedure was repeated on the database by gradually increasing the ran
 The following function will perform the interpolation, based on a fixed value ventana, which corresponds to the number of years of the range period. For example, ventana = 2 means that the range period considered will be 2 year before and 2 years after the missing value. 
 
 ~~~
-# INTERPOLATE TEMPERATURESf.fill_2 = function(x){
+# INTERPOLATE TEMPERATURES
+
+f.fill_2 = function(x){
   rowX = TEMP[x,]
   # Identificar datos faltantes en la serie de tiempo
   nas = is.na(rowX)
