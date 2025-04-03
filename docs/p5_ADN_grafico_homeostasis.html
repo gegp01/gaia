@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación de Agentes</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: darkslategrey;
+            color: aquamarine;
+            font-family: Arial, sans-serif;
+        }
+        .controls {
+            margin: 20px;
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid black;
+            background-color: black;
+        }
+        .stats {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button id="startStopButton">Iniciar Simulación</button>
+        <button id="resetButton">Reiniciar</button>
+        <div>
+            <label for="temperatureSlider">Temperatura: </label>
+            <input type="range" id="temperatureSlider" min="0" max="50" value="25">
+            <span id="tempValue">25°C</span>
+        </div>
+
+        <div>
+            <label for="mutationSlider">Tasa de Mutación:</label>
+            <input type="range" id="mutationSlider" min="0" max="1" step="0.01" value="0.1">
+            <span id="mutationValue">0.1</span>
+        </div>
+    </div>
+    
+    <div class="stats">
+        <div>
+            <label>Agentes vivos: </label>
+            <span id="agentCount">100</span>
+        </div>
+        
+        <!-- p>Agentes: <span id="agentCount">0</span></p -->
+        <p>Temperatura calculada: <span id="calculatedTemp">25.0</span>°C</p>
+    </div>
+
+    <!-- Vincula el archivo p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <!-- Vincula tu archivo JavaScript -->
+    <script src="p5_ADN_evol_color.js"></script>
+</body>
+</html>
